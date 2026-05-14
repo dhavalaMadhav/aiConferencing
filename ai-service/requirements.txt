@@ -5,14 +5,14 @@ pydantic>=2.7.0
 python-dotenv==1.0.0
 groq==0.4.2
 
-# LangChain Stack (mirrors reference RAG project)
-langchain>=0.1.0
-langchain-community>=0.0.20
-langchain-text-splitters>=0.0.1
-langchain-groq>=0.1.0
+# LangChain Stack (Stable Pins to fix resolution loops)
+langchain==0.2.17
+langchain-community==0.2.17
+langchain-text-splitters==0.2.4
+langchain-groq==0.1.9
 
-# Embeddings - HuggingFace Inference API (no local model download)
-langchain-huggingface>=0.0.1
+# Embeddings
+langchain-huggingface==0.0.3
 
-# ChromaDB via LangChain (avoids low-level hnswlib compilation issues)
-chromadb>=0.4.22
+# ChromaDB
+chromadb==0.5.5
