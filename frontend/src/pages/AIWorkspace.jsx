@@ -26,9 +26,9 @@ const AIWorkspace = () => {
   const fetchData = async () => {
     try {
       const [meetingRes, transcriptRes, chatRes] = await Promise.all([
-        axios.get(`http://localhost:3000/api/meeting/${meetingId}`),
-        axios.get(`http://localhost:3000/api/ai/transcript/${meetingId}`),
-        axios.get(`http://localhost:3000/api/ai/chat/${meetingId}`)
+        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/meeting/${meetingId}`),
+        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/transcript/${meetingId}`),
+        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/chat/${meetingId}`)
       ]);
       setMeeting(meetingRes.data);
       setTranscripts(transcriptRes.data);
@@ -50,7 +50,7 @@ const AIWorkspace = () => {
     setChatHistory(prev => [...prev, tempChat]);
 
     try {
-      const res = await axios.post('http://localhost:3000/api/ai/ask-ai', { meetingId, question: userQ });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/ask-ai`, { meetingId, question: userQ });
       setChatHistory(prev => prev.map(chat => chat.temp ? res.data.chat : chat));
     } catch (err) {
       console.error(err);

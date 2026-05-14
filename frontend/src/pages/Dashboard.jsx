@@ -10,7 +10,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import './Dashboard.css';
 
-const BASE = 'http://localhost:3000';
+const BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 // ─── Status Badge ──────────────────────────────────────────────────────────────
 const StatusBadge = ({ status }) => {

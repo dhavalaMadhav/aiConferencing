@@ -24,7 +24,7 @@ const MeetingRoom = () => {
   const audioChunksRef = useRef([]);
 
   useEffect(() => {
-    axios.post('http://localhost:3000/api/meeting/join', { roomId })
+    axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/meeting/join`, { roomId })
       .then(res => setMeeting(res.data))
       .catch(err => {
         console.error(err);
@@ -124,7 +124,7 @@ const MeetingRoom = () => {
 
         try {
           console.log('[FRONTEND] Upload starting... Sending audio to Node.js backend (/api/ai/upload-audio)');
-          const res = await axios.post('http://localhost:3000/api/ai/upload-audio', formData, {
+          const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/upload-audio`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
           });
           console.log('[FRONTEND] Upload completed! Response:', res.data);

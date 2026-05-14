@@ -10,7 +10,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      const newSocket = io('http://localhost:3000');
+      const newSocket = io(import.meta.env.VITE_API_URL || 'http://localhost:3000');
       setSocket(newSocket);
 
       return () => newSocket.close();
