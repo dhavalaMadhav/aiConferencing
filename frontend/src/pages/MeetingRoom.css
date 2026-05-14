@@ -1,0 +1,234 @@
+.meeting-page {
+  height: 100vh;
+  background-color: #050505;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.meeting-gradient-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.meeting-gradient-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.meeting-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.meeting-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.meeting-title {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.025em;
+}
+
+.meeting-room-id {
+  color: var(--text-secondary);
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.rec-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+}
+
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-primary);
+}
+
+.rec-text {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.meeting-main {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  z-index: 0;
+}
+
+.video-container {
+  width: 100%;
+  max-width: 1152px;
+  aspect-ratio: 16 / 9;
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.2) contrast(1.1);
+}
+
+.video-off-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-card);
+  background-image: radial-gradient(ellipse at center, var(--bg-secondary), var(--bg-primary));
+}
+
+.video-avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.video-nametag {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.025em;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-sm);
+}
+
+.video-focus-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 8px;
+  border-radius: var(--border-radius-sm);
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.dock-container {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+}
+
+.controls-dock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: var(--border-radius-lg);
+}
+
+.dock-btn {
+  padding: 16px;
+  border-radius: var(--border-radius-md);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dock-btn-active {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.dock-btn-inactive {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+
+.dock-btn-inactive:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.dock-divider {
+  width: 1px;
+  height: 32px;
+  background-color: var(--border-color);
+  margin: 0 8px;
+}
+
+.leave-btn {
+  padding: 16px 32px;
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.leave-btn:hover {
+  border-color: var(--text-primary);
+}
+
+.leave-btn-text {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}

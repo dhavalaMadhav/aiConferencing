@@ -1,0 +1,18 @@
+@keyframes pulseGlow {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-pulse {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes bounceDot {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+
+.animate-dot:nth-child(1) { animation: bounceDot 1.5s infinite 0s; }
+.animate-dot:nth-child(2) { animation: bounceDot 1.5s infinite 0.2s; }
+.animate-dot:nth-child(3) { animation: bounceDot 1.5s infinite 0.4s; }

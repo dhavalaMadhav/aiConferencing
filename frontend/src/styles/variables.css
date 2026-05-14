@@ -1,0 +1,23 @@
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --border-color: #2a2a2a;
+  --hover-bg: #1d1d1d;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #9f9f9f;
+  
+  --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px -10px rgba(255, 255, 255, 0.1);
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.3s ease-out;
+  
+  --font-family: 'Inter', 'Poppins', sans-serif;
+}

@@ -1,0 +1,89 @@
+# ─── Environment Variables ────────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# ─── Node / npm ───────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+
+# ─── Build Outputs ────────────────────────────────────────────
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# ─── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+eggs/
+.eggs/
+*.so
+
+# ─── Python Virtual Environments ──────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+.virtualenv/
+.pyenv/
+
+# ─── ChromaDB Vector Store ────────────────────────────────────
+ai-service/chroma_db/
+
+# ─── Audio Uploads (Temporary Files) ─────────────────────────
+backend/uploads/
+ai-service/uploads/
+
+# ─── Logs ─────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+
+# ─── OS Files ─────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ─── IDE / Editor ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+
+# ─── Testing ──────────────────────────────────────────────────
+coverage/
+.nyc_output/
+.pytest_cache/
+htmlcov/
+
+# ─── Misc ─────────────────────────────────────────────────────
+*.tmp
+*.bak
+*.orig
+.cache/
