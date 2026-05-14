@@ -35,7 +35,7 @@ require('./socket/signaling')(io);
 app.use('/api/ai', (req, res, next) => { req.io = io; next(); }, aiRoutes);
 
 
-const PORT = process.env.PORT || 1000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
