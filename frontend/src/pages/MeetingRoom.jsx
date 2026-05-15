@@ -40,6 +40,7 @@ const MeetingRoom = () => {
 
     const initializeRTC = async () => {
       try {
+        console.log('[Meeting] Initializing RTC and Recording...');
         const currentStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         setStream(currentStream);
         if (localVideoRef.current) localVideoRef.current.srcObject = currentStream;
@@ -117,9 +118,14 @@ const MeetingRoom = () => {
     initializeRTC();
 
     return () => {
+      console.log('[Meeting] Cleaning up RTC and Recording...');
       ['all-users', 'user-joined', 'offer', 'answer', 'ice-candidate', 'user-left'].forEach(ev => socket.off(ev));
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        console.log('[Meeting] Stopping recorder during cleanup');
+        mediaRecorderRef.current.stop();
+      }
     };
-  }, [socket, meeting]);
+  }, [socket, meeting?._id]);
 
   const initiateCall = async (socketId, localStream, otherUser) => {
     const peer = new RTCPeerConnection(iceServers);
@@ -172,15 +178,61 @@ const MeetingRoom = () => {
     }
   };
 
+  const uploadAudio = async () => {
+    if (audioChunksRef.current.length === 0) {
+      console.log('[Audio] No chunks to upload.');
+      return;
+    }
+
+    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.webm');
+    formData.append('meetingId', meeting._id);
+
+    console.log(`[Audio] Uploading audio to backend (${(audioBlob.size / 1024).toFixed(2)} KB)...`);
+
+    try {
+      const BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      await axios.post(`${BASE}/api/ai/upload-audio`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      console.log('[Audio] Audio uploaded successfully.');
+      audioChunksRef.current = [];
+    } catch (err) {
+      console.error('[Audio] Upload failed:', err.response?.data ? JSON.stringify(err.response.data, null, 2) : err.message);
+    }
+  };
+
   const initRecording = (currentStream) => {
     const audioTrack = currentStream.getAudioTracks()[0];
     const audioStream = new MediaStream([audioTrack]);
     audioChunksRef.current = [];
+    
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      console.log('[Audio] Stopping existing recorder before starting new one');
+      mediaRecorderRef.current.stop();
+    }
+    
     mediaRecorderRef.current = new MediaRecorder(audioStream, { mimeType: 'audio/webm' });
+    
     mediaRecorderRef.current.ondataavailable = (e) => {
-      if (e.data && e.data.size > 0) audioChunksRef.current.push(e.data);
+      if (e.data && e.data.size > 0) {
+        audioChunksRef.current.push(e.data);
+        console.log(`[Audio] Chunk collected: ${e.data.size} bytes. Total chunks: ${audioChunksRef.current.length}`);
+      }
     };
+
+    mediaRecorderRef.current.onstop = async () => {
+      console.log('[Audio] MediaRecorder stopped. Total chunks at stop:', audioChunksRef.current.length);
+      await uploadAudio();
+    };
+
+    mediaRecorderRef.current.onerror = (e) => {
+      console.error('[Audio] MediaRecorder error:', e.error);
+    };
+
     mediaRecorderRef.current.start(1000);
+    console.log('[Audio] Recording started with 1s chunks. State:', mediaRecorderRef.current.state);
   };
 
   const toggleMute = () => {
@@ -197,13 +249,27 @@ const MeetingRoom = () => {
     }
   };
 
-  const leaveMeeting = () => {
+  const leaveMeeting = async () => {
+    console.log('[Meeting] Leaving meeting...');
+    
     if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
       mediaRecorderRef.current.stop();
+      // We give it a small delay to ensure onstop triggers and upload starts
+      // or we can just wait for the uploadAudio within onstop.
+      // To be safe, we'll wait a bit if chunks exist.
+      if (audioChunksRef.current.length > 0) {
+        console.log('[Meeting] Finalizing recording before exit...');
+      }
     }
+
     if (stream) stream.getTracks().forEach(track => track.stop());
     Object.values(peersRef.current).forEach(p => p.close());
-    navigate('/dashboard');
+    
+    // Small timeout to allow the async upload initiated by onstop to get a head start
+    // In a production app, we'd use a loading state.
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 1500);
   };
 
   if (!meeting) return <div className="meeting-loading">Initializing Secure Nexus...</div>;

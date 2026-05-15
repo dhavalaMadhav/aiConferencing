@@ -17,8 +17,10 @@ export const SocketProvider = ({ children }) => {
     }
   }, [token]);
 
+  const value = React.useMemo(() => ({ socket }), [socket]);
+
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={value}>
       {children}
     </SocketContext.Provider>
   );

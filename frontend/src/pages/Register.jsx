@@ -18,7 +18,7 @@ const Register = () => {
       await register(username, email, password);
       navigate('/dashboard');
     } catch (err) {
-      alert('Registration failed');
+      alert(err.response?.data?.message || 'Registration failed');
     }
   };
 

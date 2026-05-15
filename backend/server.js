@@ -5,7 +5,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { Server } = require('socket.io');
 
-dotenv.config();
+const path = require('path');
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 const server = http.createServer(app);
@@ -39,7 +40,8 @@ const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log(`Connected to MongoDB: ${mongoose.connection.name}`);
+    console.log(`Using URI: ${process.env.MONGODB_URI.split('@')[1] || 'local'}`);
     server.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });

@@ -13,8 +13,8 @@ const Meeting = require('../models/Meeting');
 
 const upload = multer({ dest: 'uploads/' });
 
+const FASTAPI_URL = process.env.FASTAPI_URL || 'http://127.0.0.1:8001'; // Change to Render URL for production
 // const FASTAPI_URL = 'https://aiconferencing-python-fastapi.onrender.com';
-const FASTAPI_URL = 'http://127.0.0.1:8001';
 
 // Upload Audio & Process Pipeline (Forwards to FastAPI)
 router.post('/upload-audio', authMiddleware, upload.single('audio'), async (req, res) => {
@@ -102,7 +102,11 @@ router.post('/upload-audio', authMiddleware, upload.single('audio'), async (req,
       emitMeetingStatusUpdate(req.io, req.user?.id, req.body.meetingId, 'failed');
     }
 
-    res.status(500).json({ message: 'Error processing audio in FastAPI' });
+    res.status(500).json({
+      message: 'Error processing audio in FastAPI',
+      error: error.message,
+      details: error.response?.data || 'No additional details'
+    });
 
   }
 });
