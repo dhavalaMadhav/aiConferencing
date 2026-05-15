@@ -12,9 +12,8 @@ load_dotenv()
 CHROMA_PERSIST_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../chroma_db")
 )
-COLLECTION_NAME = "nexus_meetings"
 
-print(f"[FASTAPI] ChromaDB will persist at: {CHROMA_PERSIST_DIR} (Collection: {COLLECTION_NAME})")
+print(f"[FASTAPI] ChromaDB will persist at: {CHROMA_PERSIST_DIR}")
 
 
 def get_embeddings():
@@ -29,11 +28,12 @@ def get_embeddings():
 def get_vectorstore():
     """
     Returns a LangChain Chroma vectorstore backed by local persistent storage.
+    Matches the reference project's get_vectorstore() pattern exactly.
     """
     embeddings = get_embeddings()
     db = Chroma(
         persist_directory=CHROMA_PERSIST_DIR,
-        embedding_function=embeddings,
+        embedding_function=get_embeddings(),
         collection_name=COLLECTION_NAME
     )
     return db
@@ -42,16 +42,16 @@ def get_vectorstore():
 def store_documents(documents):
     """
     Adds a list of LangChain Document objects to the persistent Chroma vectorstore.
+    Each Document must have metadata containing: meetingId, speaker, timestamp.
     """
     print(f"[FASTAPI] Storing {len(documents)} document chunks in Chroma...")
     embeddings = get_embeddings()
     db = Chroma.from_documents(
         documents=documents,
         embedding=embeddings,
-        persist_directory=CHROMA_PERSIST_DIR,
-        collection_name=COLLECTION_NAME
+        persist_directory=CHROMA_PERSIST_DIR
     )
-    print(f"[FASTAPI] Chroma vectorstore updated and persisted. Total count: {db._collection.count()}")
+    print("[FASTAPI] Chroma vectorstore updated and persisted.")
     return db
 
 
