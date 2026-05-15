@@ -5,7 +5,7 @@ Uses remote HuggingFace Inference API embeddings — low memory footprint for Re
 import os
 from dotenv import load_dotenv
 from langchain_community.vectorstores import Chroma
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
+from langchain_community.embeddings import HuggingFaceHubEmbeddings
 
 load_dotenv()
 
@@ -19,9 +19,9 @@ print(f"[FASTAPI] ChromaDB will persist at: {CHROMA_PERSIST_DIR}")
 def get_embeddings():
     """Returns remote HuggingFace embeddings via Inference API (all-MiniLM-L6-v2)."""
     print("[FASTAPI] Using remote HuggingFace Inference API: all-MiniLM-L6-v2...")
-    return HuggingFaceEndpointEmbeddings(
-        model="sentence-transformers/all-MiniLM-L6-v2",
-        huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN")
+    return HuggingFaceHubEmbeddings(
+        huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
+        repo_id="sentence-transformers/all-MiniLM-L6-v2"
     )
 
 
