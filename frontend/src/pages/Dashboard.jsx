@@ -153,7 +153,6 @@ const Dashboard = () => {
       <header className="dashboard-header">
         <div className="header-container">
           <div className="header-logo">
-            <div className="logo-icon"><Video size={20} color="var(--text-primary)" strokeWidth={1.5} /></div>
             <h1 className="logo-text">Nexus AI</h1>
           </div>
           <div className="header-actions">

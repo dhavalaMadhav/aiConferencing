@@ -16,12 +16,21 @@
 }
 
 .auth-card {
-  max-w: 400px;
+  max-width: 400px;
   width: 100%;
   padding: 32px;
   border-radius: var(--border-radius-lg);
   position: relative;
   z-index: 10;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px 20px;
+  }
+  .auth-title {
+    font-size: 20px;
+  }
 }
 
 .auth-header {
