@@ -1,11 +1,11 @@
 """
 Vector store module using LangChain Chroma wrapper.
-Uses local HuggingFace embeddings (sentence-transformers) — no API key required.
+Uses remote HuggingFace Inference API embeddings — low memory footprint for Render.
 """
 import os
 from dotenv import load_dotenv
 from langchain_community.vectorstores import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 
 load_dotenv()
 
@@ -17,9 +17,12 @@ print(f"[FASTAPI] ChromaDB will persist at: {CHROMA_PERSIST_DIR}")
 
 
 def get_embeddings():
-    """Returns local HuggingFace embeddings (all-MiniLM-L6-v2) via sentence-transformers."""
-    print("[FASTAPI] Loading local embedding model: all-MiniLM-L6-v2...")
-    return HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    """Returns remote HuggingFace embeddings via Inference API (all-MiniLM-L6-v2)."""
+    print("[FASTAPI] Using remote HuggingFace Inference API: all-MiniLM-L6-v2...")
+    return HuggingFaceEndpointEmbeddings(
+        model="sentence-transformers/all-MiniLM-L6-v2",
+        huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN")
+    )
 
 
 def get_vectorstore():
