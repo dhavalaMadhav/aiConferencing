@@ -452,3 +452,221 @@
   border-color: transparent;
   box-shadow: none;
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Mobile Transcript Toggle Button (hidden on desktop)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.mobile-transcript-toggle {
+  display: none; /* shown only on mobile via media query */
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-secondary);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.mobile-transcript-toggle:hover {
+  background: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.transcript-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  font-size: 10px;
+  font-weight: 700;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Transcript Popup (bottom sheet on mobile)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ws-transcript-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+
+.ws-transcript-popup {
+  width: 100%;
+  max-height: 80vh;
+  background: #0f0f0f;
+  border-top: 1px solid var(--border-color);
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ws-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(17, 17, 17, 0.9);
+  flex-shrink: 0;
+}
+
+.ws-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ws-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.ws-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  transition: all 0.15s;
+}
+.ws-icon-btn:hover {
+  background: var(--hover-bg);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.ws-transcript-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+}
+
+.ws-transcript-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.ws-transcript-time {
+  font-size: 11px;
+  color: rgba(156, 156, 156, 0.5);
+  white-space: nowrap;
+  padding-top: 1px;
+  min-width: 38px;
+}
+
+.ws-transcript-body {
+  flex: 1;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  padding-left: 10px;
+  line-height: 1.6;
+}
+
+.ws-transcript-speaker {
+  color: rgba(255,255,255,0.75);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.ws-transcript-text {
+  color: var(--text-secondary);
+}
+
+.ws-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+  opacity: 0.4;
+}
+
+.ws-empty-state p {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.ws-empty-state span {
+  font-size: 12px;
+  opacity: 0.7;
+  max-width: 240px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE — ≤ 768px (mobile)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width: 768px) {
+  /* Show the transcript toggle button */
+  .mobile-transcript-toggle {
+    display: flex;
+  }
+
+  /* Hide the side transcript panel entirely — popup replaces it */
+  .transcript-panel {
+    display: none !important;
+  }
+
+  /* Hide System Active badge on mobile */
+  .system-badge {
+    display: none;
+  }
+
+  /* Chat panel takes full width */
+  .chat-panel {
+    width: 100% !important;
+  }
+
+  /* Tighter chat padding */
+  .chat-content {
+    padding: 20px 14px;
+    gap: 20px;
+  }
+
+  .msg-bubble-user,
+  .msg-bubble-ai {
+    max-width: 90%;
+    font-size: 13.5px;
+  }
+
+  .chat-input-area {
+    padding: 12px;
+  }
+
+  .chat-empty {
+    padding: 0 8px;
+  }
+}
