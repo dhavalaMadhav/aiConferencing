@@ -272,7 +272,7 @@ const MeetingRoom = () => {
     }, 1500);
   };
 
-  if (!meeting) return <div className="meeting-loading">Initializing Secure Nexus...</div>;
+  if (!meeting) return <div className="meeting-loading">Initializing GetAiFor...</div>;
 
   return (
     <div className="meeting-page">

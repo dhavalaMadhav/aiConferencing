@@ -33,14 +33,6 @@ const Login = () => {
         style={{ maxWidth: '400px' }}
       >
         <div className="auth-header">
-          <motion.div 
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="auth-icon-wrapper"
-          >
-            <Video size={32} color="var(--text-primary)" strokeWidth={1.5} />
-          </motion.div>
           <h2 className="auth-title">Welcome Back</h2>
           <p className="auth-subtitle">Sign in to your AI workspace</p>
         </div>

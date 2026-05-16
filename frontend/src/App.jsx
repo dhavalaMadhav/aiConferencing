@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import MeetingRoom from './pages/MeetingRoom';
 import AIWorkspace from './pages/AIWorkspace';
+import Landing from './pages/Landing';
 
 const ProtectedRoute = ({ children }) => {
   const { token, loading } = useContext(AuthContext);
@@ -37,7 +38,7 @@ const AppRoutes = () => {
           <AIWorkspace />
         </ProtectedRoute>
       } />
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<Landing />} />
     </Routes>
   );
 };

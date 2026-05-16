@@ -153,7 +153,7 @@ const Dashboard = () => {
       <header className="dashboard-header">
         <div className="header-container">
           <div className="header-logo">
-            <h1 className="logo-text">Nexus AI</h1>
+            <h1 className="logo-text">GetAiFor</h1>
           </div>
           <div className="header-actions">
             <div className="user-badge">
@@ -186,7 +186,7 @@ const Dashboard = () => {
             tabIndex={0}
             onKeyDown={e => e.key === 'Enter' && handleHostMeeting()}
           >
-            <div className="action-card-icon"><Video size={24} color="var(--text-primary)" strokeWidth={1.5} /></div>
+            <div className="action-card-icon"></div>
             <h2 className="action-card-title">Host a Meeting</h2>
             <p className="action-card-desc">Create a secure, AI-powered conference room instantly.</p>
             <div className="action-cta">
